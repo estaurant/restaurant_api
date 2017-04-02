@@ -1,0 +1,6 @@
+node_modules
+.vscode
+detail_list.txt
+data_loader.js
+loader.js
+mongo
