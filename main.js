@@ -8,7 +8,8 @@ const service = new EsRestaurantService();
 const Config = require('./config');
 const DEFAULT_USER = 'user1';
 
-const PORT = 8445;
+const PORT = process.env.PORT || 8445;
+
 const app = express();
 app.listen(PORT);
 app.use(bodyParser.json());
