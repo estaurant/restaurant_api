@@ -1,4 +1,4 @@
-# restaurant_api
+# Estaurant REST API
 Rest API to search for restaurant around RSU building
 
 # PARAMETERS
