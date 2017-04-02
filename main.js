@@ -69,7 +69,7 @@ const pickOne = (res, opts) => {
 
         return service.find(DEFAULT_USER, opts, {from: r, size: 1, timeOfDay:''})
         .then(results => {
-            res.send(results.hits.hits[0]);
+            res.json(results.hits.hits[0]);
         });
     })
     .catch( error => {
