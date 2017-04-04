@@ -44,8 +44,8 @@ class EsRestaurantService {
     };
 
     findByDistance(userId, maxDistance, opts) {
-        opts = Object.assign(opts, {
-            location: Object.assign(Config.DEFAULT_LOCATION, {maxDistance}),
+        opts = Object.assign({},opts, {
+            location: Object.assign({},Config.DEFAULT_LOCATION, {maxDistance}),
         });
 
         let q = buildQuery(opts);
@@ -54,7 +54,7 @@ class EsRestaurantService {
     };
 
     find(userId, opts, moreOpts) {
-        opts = Object.assign({
+        opts = Object.assign({},{
             location: Config.DEFAULT_LOCATION
         }, opts, moreOpts);
 
@@ -65,7 +65,7 @@ class EsRestaurantService {
 }
 
 const buildQuery = (opts) => {
-    opts = Object.assign({
+    opts = Object.assign({},{
         dayOfWeek: getDayOfWeek(),
         timeOfDay: getTime(),
     }, opts);
