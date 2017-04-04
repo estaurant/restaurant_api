@@ -28,7 +28,7 @@ class EsRestaurantService {
 
         let q = buildQuery(opts);
 
-        return find(this.client, q);
+        return find(this.client, q, opts);
     }
 
     findByKeyword(userId, keyword) {
@@ -39,7 +39,7 @@ class EsRestaurantService {
 
         let q = buildQuery(opts);
 
-        return find(this.client, q);
+        return find(this.client, q, opts);
     };
 
     findByDistance(userId, maxDistance, opts) {
@@ -49,7 +49,7 @@ class EsRestaurantService {
 
         let q = buildQuery(opts);
 
-        return find(this.client, q);
+        return find(this.client, q, opts);
     };
 
     find(userId, opts, moreOpts) {
@@ -59,7 +59,7 @@ class EsRestaurantService {
 
         let q = buildQuery(opts);
 
-        return find(this.client, q);
+        return find(this.client, q, opts);
     };
 }
 
@@ -115,14 +115,31 @@ const buildQuery = (opts) => {
     return q;
 }
 
-const find = (client, q) => {
+const find = (client, q, opts) => {
     return client.search({ index: indexName, body: q })
         .then(
             (results) => {
                 console.log('Found:',results);
-                return results;
+                return postProcess(results, opts);
             },
             (errors) => console.error(errors));
 }
+
+const postProcess = (results, opts) => {
+    if(results && results.hits && results.hits.hits && opts.location){
+        results.hits.hits = results.hits.hits.map( r => {
+            let lat1 = opts.location.lat;
+            let lon1 = opts.location.lon;
+            let lat2 = r._source.geo.location[1];
+            let lon2 = r._source.geo.location[0];
+
+            r._distance = calculateDistance(lat1, lon1, lat2, lon2, 'K') * 1000;
+            return r;
+        });
+    }
+
+    return results;
+}
+
 
 module.exports = EsRestaurantService;
