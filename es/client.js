@@ -7,7 +7,6 @@ const getClient = () => {
     return new elasticsearch.Client({
         host: Config.ES_HOST,
         httpAuth: Config.ES_HTTPAUTH,
-        keepAlive: false
     });
 }
 
