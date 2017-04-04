@@ -30,6 +30,13 @@ app.get('/estaurants', function(req, res) {
         q.location = Object.assign(Config.DEFAULT_LOCATION, {maxDistance: req.query.distance});
     }
 
+    if(req.query.lat && req.query.lon && req.query.distance){
+        q.location = {
+            lat: parseFloat(req.query.lat), 
+            lon: parseFloat(req.query.lon), 
+            maxDistance: req.query.distance};
+    }
+
     if(req.query.price){
         q.limitPrice = req.query.price;
     }
