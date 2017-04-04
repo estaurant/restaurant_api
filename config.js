@@ -4,7 +4,7 @@ const ES_HOST = process.env.ES_HOST;
 const ES_HTTPAUTH = process.env.ES_HTTPAUTH;
 const DEFAULT_LAT = process.env.LAT;
 const DEFAULT_LON = process.env.LON;
-const DEFAULT_DISTANCE = process.env.DISTANCE || '1km';
+const DEFAULT_DISTANCE = process.env.DISTANCE || '5km';
 
 let DEFAULT_LOCATION = {}
 
