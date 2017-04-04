@@ -43,6 +43,12 @@ const buildMustQ = () => {
     }
 }
 
+const buildExistQ = (field) => {
+    return {
+        "exists": {"field": field}
+    }
+}
+
 const buildNestedQ = (path, q) => {
     return {
         "nested": {
@@ -72,5 +78,6 @@ module.exports = {
     buildMustQ,
     buildNestedQ,
     buildRangeQ,
+    buildExistQ,
     buildWildCardQ
 }

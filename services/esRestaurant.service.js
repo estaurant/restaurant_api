@@ -10,6 +10,7 @@ const { buildBoolQ,
     buildMustQ, 
     buildNestedQ, 
     buildRangeQ,
+    buildExistQ,
     buildWildCardQ} = require('../es/query')
 
 let indexName = 'estaurant';
@@ -88,6 +89,18 @@ const buildQuery = (opts) => {
         ];
         let timesQ = buildNestedQ(`times.${opts.dayOfWeek}`, buildBoolQ({ must: mustTimesQ }));
         filters.push(timesQ);
+    }
+
+    if (opts.recommended === true){
+        let ratingExist = buildExistQ("rating");
+        let ratingValue = buildRangeQ("rating.ratingValue", "gte", 3);
+        let ratingCount = buildRangeQ("rating.ratingCount", "gte", 3);
+        let reviewCount = buildRangeQ("rating.reviewCount", "gte", 3);
+        
+        filters.push(ratingExist);
+        filters.push(ratingValue);
+        filters.push(ratingCount);
+        filters.push(reviewCount);
     }
 
     let mustQ = [];

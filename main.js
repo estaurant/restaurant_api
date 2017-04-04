@@ -34,7 +34,11 @@ app.get('/estaurants', function(req, res) {
         q.limitPrice = req.query.price;
     }
 
-    if(req.query.random){
+    if(req.query.recommended === "true"){
+        q.recommended = true;
+    }
+
+    if(req.query.random === "true"){
         pickOne(res, q);
         return;
     }
